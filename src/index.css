@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "system-ui", "-apple-system", sans-serif;
+  --font-serif: "Playfair Display", "Noto Serif SC", "Georgia", "STSong", serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", monospace;
+
+  --color-art-bg: #fdfaf5;
+  --color-art-text: #3d2b1f;
+  --color-art-accent: #8c4a32;
+  --color-art-border: #e8dfd3;
+  --color-art-panel: #f9f3eb;
+
+  --color-ink-bg: #0a0a0a;
+  --color-ink-text: #f3f3f3;
+  --color-ink-accent: #a1a1aa;
+  --color-ink-border: #222222;
+  --color-ink-panel: #141414;
+}
+
+/* Custom Chinese Writing Mode */
+.writing-mode-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* Custom Slow rotating for the compass icon */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* Custom scrollbar to match beautiful warm/mono themes */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 90, 43, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 90, 43, 0.3);
+}
+
+.mono-mode ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mono-mode ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}

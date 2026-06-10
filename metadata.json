@@ -1,0 +1,6 @@
+{
+  "name": "压白尺 · 营造智鉴",
+  "description": "中国非官式古建筑压白测算工具与浦东夏式宅学术展示系统",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
