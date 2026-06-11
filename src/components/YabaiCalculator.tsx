@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { motion } from "motion/react";
 import {
   TrigramName,
@@ -34,43 +34,6 @@ export default function YabaiCalculator({ theme }: YabaiCalculatorProps) {
   const [customScaleCm, setCustomScaleCm] = useState<number>(27.5);
 
   const [isDragging, setIsDragging] = useState<boolean>(false);
-
-  // COZE MOCK DIALOG STATES for user interactive validation & setup testing
-  const [chatInput, setChatInput] = useState("");
-  const [chatMessages, setChatMessages] = useState<Array<{ sender: "user" | "agent"; text: string; time: string }>>([
-    {
-      sender: "agent",
-      text: "您好！我是大木作「压白理气」AI 专属助手。本对话区已由系统专为此 Coze Agent 预留，支持您嵌入自主搭建的智能体服务。在接入前，您可以发送消息，提前体验我的模拟智能问答。请问您有什么关于房屋压白测算的疑问吗？",
-      time: "15:40"
-    }
-  ]);
-  const [isTyping, setIsTyping] = useState(false);
-
-  const handleSendChat = (text: string) => {
-    if (!text.trim()) return;
-    const now = new Date();
-    const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-    const updatedMessages = [...chatMessages, { sender: "user", text, time: timeStr }];
-    setChatMessages(updatedMessages);
-    setChatInput("");
-    setIsTyping(true);
-
-    setTimeout(() => {
-      let reply = "感谢您的反馈！作为一个智能大木助手，您可以随时在这一块区域中嵌入您在 Coze (扣子) 中搭建完毕的正式 AI Agent 框架，实现定制化、高质量的业务学理问答与交流！";
-      const normalized = text.toLowerCase();
-      if (normalized.includes("3.8") || normalized.includes("3800") || normalized.includes("面宽") || normalized.includes("尺寸")) {
-        reply = "3.8米（3800毫米）在浦东东部营造尺（27.5厘米）下等于 13尺 8.18寸。按『金坎』卦算：13尺得出的是【二黑·巨门星】（凶）；而 8寸得出的是【九紫·右弼星】（吉）。因面宽大木在尺位上落在二黑凶星，不算整体大吉。建议微调至 3.85米（整 14尺，落一白，大吉）或 4.12米（15尺，落八白，大吉）！";
-      } else if (normalized.includes("山") || normalized.includes("坐向") || normalized.includes("壬" ) || normalized.includes("丙") || normalized.includes("夏家") || normalized.includes("二十四山")) {
-        reply = "夏家宅中轴精确立向为「坐壬向丙」（呈西北-东南偏角）。在廿四山所属中，‘离纳壬寅午戌’，所以该宅归属「离卦房」。离卦的面阔【寸白】从‘一白’起轮，因此逢 1寸、6寸、8寸、9寸全部是大吉压白寸，您可以用下方的交互罗盘模拟旋转校验。";
-      } else if (normalized.includes("鲁班尺") || normalized.includes("营造尺") || normalized.includes("区别") || normalized.includes("尺子")) {
-        reply = "鲁班尺主要对应家具百物、门窗门槛等小木作。而大木作理气『压白尺』则是决定整栋房屋面宽开间、通进深、立柱高矮等宏观骨架主轴。夏家宅所载的浦东营造尺合27.5厘米，是明清浦东营造匠师专门核算大木尺度吉凶、求其紫白相合的天文模尺规则。";
-      } else if (normalized.includes("压白") || normalized.includes("什么是") || normalized.includes("紫白")) {
-        reply = "「压白」指古代工匠将长宽高等尺度经营造尺换算为寸数后，按罗阳九星白宿（一白贪狼、六白武曲、八白左辅、九紫右弼）轮盘顺挨。若落在这几个吉祥星色上，就称之为‘压白’，能让整栋建筑的空间谐振契合堪舆天星的祥瑞极性。";
-      }
-      setChatMessages(prev => [...prev, { sender: "agent", text: reply, time: timeStr }]);
-      setIsTyping(false);
-    }, 1100);
-  };
 
   const handleCompassPointer = (e: React.PointerEvent<SVGSVGElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -232,170 +195,6 @@ export default function YabaiCalculator({ theme }: YabaiCalculatorProps) {
         </p>
       </div>
 
-      {/* ========================================================== */}
-      {/* 🤖 COZE AGENT INTEGRATION BLOCK / COZE 智能体交互嵌入区     */}
-      {/* ========================================================== */}
-      <div className={`p-5 sm:p-6 rounded-2xl border ${
-        isWarm ? "bg-[#fdfbf7] border-art-border text-art-text shadow-md shadow-art-accent/10" : "bg-[#111111] border-[#222222] text-[#F3F3F3]"
-      } space-y-4`}>
-        {/* Banner Header with Status Indicator */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-current border-opacity-10">
-          <div className="flex items-center space-x-2.5">
-            <div className="p-1.5 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400">
-              <Sparkles className="h-5 w-5 animate-pulse" />
-            </div>
-            <div>
-              <h3 className="font-serif text-base font-bold flex items-center gap-2">
-                <span>Coze AI 营造智能助手对话区 (已预留)</span>
-                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-sans font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
-                  正在运行・支持Coze组件接入
-                </span>
-              </h3>
-              <p className={`text-[11px] ${isWarm ? "text-art-text/60" : "text-zinc-500"} mt-0.5`}>
-                在此处，您可以随时和我们搭建并调教完成的扣子(Coze) AI Agent 直接双向沟通，解答一切房屋尺度吉凶及二十四山坐向问题。
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 self-start sm:self-center shrink-0">
-            <span className="text-[10px] uppercase tracking-wider font-mono px-2 py-1 rounded bg-stone-100 dark:bg-zinc-800 text-current opacity-70">
-              Embedding Container
-            </span>
-          </div>
-        </div>
-
-        {/* Outer Full-Width Container */}
-        <div className="w-full">
-          {/* Full Width Dialogue Panel */}
-          <div className={`w-full flex flex-col h-[320px] rounded-xl border ${
-            isWarm ? "bg-white border-art-border" : "bg-black/50 border-zinc-900"
-          } overflow-hidden shadow-sm`}>
-            {/* Thread top bar */}
-            <div className="px-4 py-3 bg-current bg-opacity-[0.03] border-b border-current border-opacity-5 flex items-center justify-between">
-              <div className="flex items-center space-x-2.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></div>
-                <span className="font-serif font-bold text-sm">营造顾问智能体 (已成功对接)</span>
-              </div>
-              <div className="flex items-center space-x-2 text-[10px] uppercase font-mono opacity-60">
-                <span className="inline-block px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 dark:bg-zinc-800 dark:text-zinc-300">Coze Web SDK Active</span>
-              </div>
-            </div>
-
-            {/* Scrollable chat items list */}
-            <div className="flex-grow overflow-y-auto p-4 space-y-3.5 text-xs">
-              {chatMessages.map((msg, idx) => (
-                <div key={idx} className={`flex gap-3 ${msg.sender === "user" ? "flex-row-reverse" : "flex-row"}`}>
-                  {/* Chat Avatar */}
-                  <div className={`w-8 h-8 rounded-full shrink-0 flex items-center justify-center font-bold text-[11px] ${
-                    msg.sender === "user"
-                      ? "bg-stone-800 text-white"
-                      : "bg-rose-500 text-white"
-                  }`}>
-                    {msg.sender === "user" ? "用户" : "工匠"}
-                  </div>
-                  
-                  {/* Chat Message Bubble */}
-                  <div className="max-w-[80%] space-y-1">
-                    <div className={`px-3.5 py-2 rounded-xl leading-relaxed whitespace-pre-wrap ${
-                      msg.sender === "user"
-                        ? "bg-rose-600 text-white rounded-tr-none font-medium"
-                        : isWarm
-                        ? "bg-stone-100 text-stone-800 rounded-tl-none border border-stone-200"
-                        : "bg-zinc-800 text-zinc-100 rounded-tl-none border border-zinc-700/60"
-                    }`}>
-                      {msg.text}
-                    </div>
-                    <div className={`text-[9px] opacity-40 px-1 ${msg.sender === "user" ? "text-right" : "text-left"}`}>
-                      {msg.time}
-                    </div>
-                  </div>
-                </div>
-              ))}
-
-              {/* Typing indicator */}
-              {isTyping && (
-                <div className="flex gap-3 items-center text-stone-400 dark:text-zinc-500">
-                  <div className="w-8 h-8 rounded-full bg-rose-500 text-white shrink-0 flex items-center justify-center font-bold text-[11px]">
-                    工匠
-                  </div>
-                  <div className={`px-3 py-2 rounded-xl rounded-tl-none text-[11px] ${
-                    isWarm ? "bg-stone-100" : "bg-zinc-800"
-                  } flex items-center space-x-1`}>
-                    <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
-                    <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
-                    <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Quick Helper Prompts balloons */}
-            <div className="px-4 py-2 bg-current bg-opacity-[0.01] flex flex-wrap gap-2 border-t border-current border-opacity-5 select-none shrink-0">
-              <button
-                type="button"
-                onClick={() => handleSendChat("帮我看看3.8米面宽怎么压白最吉利？")}
-                disabled={isTyping}
-                className="text-[10px] px-2.5 py-1 rounded-full border border-current border-opacity-10 bg-black/5 hover:bg-black/10 active:scale-95 disabled:opacity-50 cursor-pointer text-stone-700 dark:text-stone-300 font-serif font-bold transition-all"
-              >
-                📐 面宽 3.8米压白分析
-              </button>
-              <button
-                type="button"
-                onClick={() => handleSendChat("夏家宅坐壬向丙（坐西北偏北），属于哪一卦房？它的压白寸有哪些？")}
-                disabled={isTyping}
-                className="text-[10px] px-2.5 py-1 rounded-full border border-current border-opacity-10 bg-black/5 hover:bg-black/10 active:scale-95 disabled:opacity-50 cursor-pointer text-stone-700 dark:text-stone-300 font-serif font-bold transition-all"
-              >
-                🧭 夏家宅坐壬向丙
-              </button>
-              <button
-                type="button"
-                onClick={() => handleSendChat("浦东大伙营造尺 27.5cm 和鲁班尺在古建开间中怎么配合？")}
-                disabled={isTyping}
-                className="text-[10px] px-2.5 py-1 rounded-full border border-current border-opacity-10 bg-black/5 hover:bg-black/10 active:scale-95 disabled:opacity-50 cursor-pointer text-stone-700 dark:text-stone-300 font-serif font-bold transition-all"
-              >
-                📏 营造尺与鲁班尺
-              </button>
-            </div>
-
-            {/* Input form */}
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleSendChat(chatInput);
-              }}
-              className="p-2.5 border-t border-current border-opacity-5 flex items-center space-x-2 shrink-0 bg-current bg-opacity-[0.02]"
-            >
-              <input
-                type="text"
-                value={chatInput}
-                onChange={(e) => setChatInput(e.target.value)}
-                placeholder="可以直接在右下角悬浮的 Coze 弹窗中对话，或在这里输入问题..."
-                disabled={isTyping}
-                className={`flex-grow px-3 py-2 text-xs rounded-lg outline-none border transition-all ${
-                  isWarm
-                    ? "bg-stone-50 border-stone-200 text-stone-800 focus:bg-white focus:border-rose-300"
-                    : "bg-zinc-900 border-zinc-800 text-zinc-100 focus:bg-black focus:border-rose-900"
-                }`}
-              />
-              <button
-                type="submit"
-                disabled={isTyping || !chatInput.trim()}
-                className="p-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-white disabled:opacity-40 transition-colors cursor-pointer"
-              >
-                <Send className="h-4 w-4" />
-              </button>
-            </form>
-          </div>
-        </div>
-
-        {/* ========================================================== */}
-        {/* Real Coze embed placement target container for developers */}
-        {/* ========================================================== */}
-        <div id="coze-embedded-container" className="hidden"></div>
-        {/* ========================================================== */}
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left column: Parameters Input - 6 cols */}
         <div className={`lg:col-span-6 p-6 rounded-2xl border ${
@@ -504,9 +303,14 @@ export default function YabaiCalculator({ theme }: YabaiCalculatorProps) {
           </div>
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <label className="text-xs font-semibold uppercase tracking-wider block opacity-75">
-                3. 二十五山·房屋坐山山向
-              </label>
+              <div className="space-y-0.5">
+                <label className="text-xs font-semibold uppercase tracking-wider block opacity-75">
+                  3. 二十四山・房屋坐山山向
+                </label>
+                <span className={`text-[10px] block opacity-60 italic ${isWarm ? "text-art-text" : "text-zinc-400"}`}>
+                  注：坐山是房屋朝向的背向
+                </span>
+              </div>
               <span className={`text-xs px-2 py-0.5 rounded-full font-serif ${
                 isWarm ? "bg-art-accent/15 text-art-accent font-bold" : "bg-white/15 text-white"
               }`}>
