@@ -8,6 +8,14 @@ import { motion } from "motion/react";
 import { XIA_HOUSE_META, XIA_HOUSE_CASES } from "../data/xiaHouseData";
 import { calculateYabai, formatYabaiMeasurement } from "../utils";
 import { Compass, BookOpen, ChevronLeft, ChevronRight, HelpCircle, Eye, Sliders, Image, ListCollapse, CheckCircle, XCircle } from "lucide-react";
+// @ts-ignore
+import myNewImage from '../../assets/.aistudio/section1.png';
+// @ts-ignore
+import niaokanImg from '../../assets/.aistudio/niaokan.jpg';
+// @ts-ignore
+import shanwallImg from '../../assets/.aistudio/shanwall.png';
+// @ts-ignore
+import luopanImg from '../../assets/.aistudio/luopan.png';
 
 interface XiaHouseShowcaseProps {
   theme: "warm" | "mono";
@@ -29,126 +37,55 @@ export default function XiaHouseShowcase({ theme, onSendToCalculator }: XiaHouse
 
   const activeCase = XIA_HOUSE_CASES.find((c) => c.id === activeCaseId) || XIA_HOUSE_CASES[0];
 
-  // 3D Wireframe parameters
-  const [explodeRatio, setExplodeRatio] = useState<number>(0);
-  const [showRoof, setShowRoof] = useState<boolean>(true);
-  const [showWall, setShowWall] = useState<boolean>(true);
-
   // Photos/Aerial diagrams for flipping carousel
   const [photoIdx, setPhotoIdx] = useState<number>(0);
   const slides = [
     {
-      title: "夏式宅三合院落骨架俯瞰",
-      subtitle: "两进三合偏房整体空间格局",
-      caption: "俯瞰可见两进三合天井格局，两翼观音兜火山墙巍峨落起，主次房屋中轴严整对称。",
+      title: "夏氏宅院落俯瞰 (1/4)",
+      subtitle: "院落及山墙鸟瞰",
+      caption: "主次房屋中轴严整对称，带有独特的浦东营造匠艺与防风火山墙风貌。",
       svg: (
-        <svg className="w-full h-full text-current" viewBox="0 0 160 100" fill="none" stroke="currentColor" strokeWidth="0.8">
-          <polygon points="40,30 80,12 120,30 80,48" strokeWidth="1" fill="currentColor" fillOpacity="0.06" />
-          <polygon points="35,32 15,48 38,62 55,42" fill="currentColor" fillOpacity="0.04" />
-          <polygon points="125,32 145,48 122,62 105,42" fill="currentColor" fillOpacity="0.04" />
-          <rect x="58" y="44" width="44" height="25" strokeDasharray="2,2" opacity="0.4" />
-          <text x="80" y="58" fontSize="7" textAnchor="middle" stroke="none" fill="currentColor" opacity="0.75" className="font-serif">天井庭院</text>
-          <line x1="80" y1="5" x2="80" y2="88" stroke="currentColor" strokeWidth="0.5" strokeDasharray="3,1" opacity="0.4" />
-          <path d="M12,46 C24,32 24,32 32,25 M148,46 C136,32 136,32 128,25" strokeWidth="1.2" strokeLinecap="round" />
-          <text x="80" y="85" fontSize="6" textAnchor="middle" stroke="none" fill="currentColor" opacity="0.6">中轴大木定位线</text>
-        </svg>
+        <img
+          src={niaokanImg}
+          alt="夏氏宅大木与防火山墙鸟瞰"
+          className="max-h-full max-w-full object-contain bg-transparent"
+        />
       )
     },
     {
-      title: "观音兜封火山墙",
+      title: "观音兜封火山墙 (2/4)",
       subtitle: "形如大衣覆顶的优美江南火墙",
       caption: "夏氏宅山墙采用江南经典的【观音兜】消防火山墙形式。其高耸的圆拱弧线如观音衣兜罩顶，能阻断火势并完美御风。",
       svg: (
-        <svg className="w-full h-full text-current" viewBox="0 0 160 100" fill="none" stroke="currentColor" strokeWidth="1">
-          {/* Real Guanyindou curved double wavy outline */}
-          <path d="M 30,85 L 30,50 Q 30,35 45,30 Q 60,25 70,35 Q 80,45 80,15 Q 80,45 90,35 Q 100,25 115,30 Q 130,35 130,50 L 130,85" strokeWidth="1.5" fill="currentColor" fillOpacity="0.05" />
-          <path d="M 28,50 Q 28,33 45,28 Q 60,23 70,33 Q 80,43 80,12 Q 80,43 90,33 Q 100,23 115,28 Q 130,33 132,50" strokeWidth="0.6" strokeDasharray="2,2" />
-          {/* Center Window */}
-          <rect x="73" y="40" width="14" height="20" strokeWidth="1" fill="currentColor" fillOpacity="0.1" />
-          <line x1="80" y1="40" x2="80" y2="60" strokeWidth="0.6" />
-          <line x1="73" y1="50" x2="87" y2="50" strokeWidth="0.6" />
-          <rect x="71" y="38" width="18" height="24" strokeWidth="0.5" strokeOpacity="0.5" />
-          {/* Side Small windows */}
-          <rect x="42" y="55" width="10" height="15" strokeWidth="0.7" />
-          <rect x="108" y="55" width="10" height="15" strokeWidth="0.7" />
-          <text x="80" y="80" fontSize="6.5" textAnchor="middle" stroke="none" fill="currentColor" opacity="0.8" className="font-serif">经典双波叠檐观音兜山墙</text>
-        </svg>
+        <img
+          src={shanwallImg}
+          alt="观音兜封火山墙"
+          className="max-h-full max-w-full object-contain bg-transparent"
+        />
       )
     },
     {
-      title: "七路头27发",
-      subtitle: "路头即进深排柱，连两椽中心线为一发",
-      caption: "合庆镇营造中‘路头’指进深排柱。相邻两椽中心线为一‘发’（20-22cm），此发数主宰着整个厅堂在面宽方向的尺寸。",
+      title: "浦东大木作大木剖面图 (3/4)",
+      subtitle: "七路头27发穿斗式排架结构剖面",
+      caption: "大木断构剖面图：展现江南传统穿斗构架（七落地柱、多层通长穿枋、二层中夹层阁楼）相互穿插榫接的经典建筑构造断面。",
       svg: (
-        <svg className="w-full h-full text-current" viewBox="0 0 160 100" fill="none" stroke="currentColor" strokeWidth="0.8">
-          {/* Rafter Lines representing "Fa" (发) */}
-          <g strokeOpacity="0.2">
-            <line x1="20" y1="15" x2="20" y2="75" />
-            <line x1="35" y1="15" x2="35" y2="75" />
-            <line x1="50" y1="15" x2="50" y2="75" />
-            <line x1="65" y1="15" x2="65" y2="75" />
-            <line x1="80" y1="15" x2="80" y2="75" strokeWidth="1" strokeOpacity="0.4" />
-            <line x1="95" y1="15" x2="95" y2="75" />
-            <line x1="110" y1="15" x2="110" y2="75" />
-            <line x1="125" y1="15" x2="125" y2="75" />
-            <line x1="140" y1="15" x2="140" y2="75" />
-          </g>
-          {/* Pillars representing "Lutou" (路头) */}
-          <line x1="35" y1="80" x2="35" y2="35" strokeWidth="2.2" />
-          <line x1="125" y1="80" x2="125" y2="35" strokeWidth="2.2" />
-          <line x1="80" y1="80" x2="80" y2="20" strokeWidth="2.8" />
-          <path d="M 35,35 L 80,20 L 125,35" strokeWidth="1.5" />
-          <circle cx="80" cy="20" r="2.5" fill="currentColor" />
-          <circle cx="35" cy="35" r="2" fill="currentColor" />
-          <circle cx="125" cy="35" r="2" fill="currentColor" />
-          <text x="80" y="93" fontSize="6.5" textAnchor="middle" stroke="none" fill="currentColor" opacity="0.85" className="font-serif">七路头27发构造示意：按间距分布</text>
-        </svg>
+        <img
+          src={myNewImage}
+          alt="浦东大木作「穿斗式」排架结构剖面图"
+          className="max-h-full max-w-full object-contain bg-transparent"
+        />
       )
     },
     {
-      title: "罗盘应用示例（夏氏宅坐向）",
+      title: "罗盘应用示例及坐向测定 (4/4)",
       subtitle: "坐壬向丙，纳甲属离卦之科学测定",
-      caption: "通过传统罗盘测绘，夏氏宅中轴线呈西北-东南偏角。根据二十四纳甲所属：‘离纳壬寅午戌’，极准地归结为离卦房，是压白算式的主要因子。",
+      caption: "根据二十四纳甲所属：‘离纳壬寅午戌’，极准地归结为离卦房，是压白算式的主要因子。",
       svg: (
-        <svg className="w-full h-full text-current" viewBox="0 0 160 100" fill="none" stroke="currentColor" strokeWidth="0.8">
-          {/* Satellite Map Simulated Frame */}
-          <rect x="5" y="5" width="150" height="90" rx="3" fill="currentColor" fillOpacity="0.04" strokeWidth="0.5" />
-          <g opacity="0.3">
-            <path d="M 45,65 L 55,25 L 85,32 L 75,72 Z" fill="currentColor" fillOpacity="0.1" />
-            <path d="M 85,32 L 115,39 L 105,79 L 75,72 Z" fill="currentColor" fillOpacity="0.05" strokeDasharray="1,1" />
-            <text x="110" y="25" fontSize="5" fill="currentColor">合庆镇风貌天井房</text>
-          </g>
-
-          {/* Compass overlay */}
-          <circle cx="50" cy="50" r="32" stroke="currentColor" strokeWidth="0.8" fill="currentColor" fillOpacity="0.02" />
-          <circle cx="50" cy="50" r="26" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2,2" />
-          <circle cx="50" cy="50" r="14" stroke="currentColor" strokeWidth="0.6" />
-          
-          <g>
-            <line x1="41" y1="16" x2="59" y2="84" stroke="#e11d48" strokeWidth="1.2" />
-            
-            <polygon points="41,16 38,22 44,21" fill="#e11d48" stroke="none" />
-            <polygon points="59,84 62,78 56,79" fill="#e11d48" stroke="none" />
-
-            <text x="35" y="14" fontSize="5.5" fill="#e11d48" fontWeight="bold" className="font-serif">坐：壬山 (345°)</text>
-            <text x="65" y="88" fontSize="5.5" fill="#e11d48" fontWeight="bold" className="font-serif">向：丙向 (165°)</text>
-          </g>
-
-          {/* Key annotation notes */}
-          <g transform="translate(92, 10)">
-            <rect x="0" y="0" width="60" height="42" rx="2" fill="currentColor" fillOpacity="0.03" stroke="currentColor" strokeWidth="0.5" />
-            <text x="5" y="8" fontSize="5" fontWeight="bold" fill="currentColor">廿四山纳甲所属表</text>
-            <line x1="5" y1="11" x2="55" y2="11" stroke="currentColor" strokeWidth="0.4" opacity="0.3" />
-            <text x="5" y="17" fontSize="4.5" fill="currentColor">乾纳甲 | 坤纳乙</text>
-            <text x="5" y="24" fontSize="4.5" fill="currentColor">艮纳丙 | 巽纳辛</text>
-            <text x="5" y="32" fontSize="5" fontWeight="bold" fill="#e11d48">离纳【壬】寅午戌</text>
-            <text x="5" y="38" fontSize="4" fill="currentColor">※ 离卦房由此确立</text>
-          </g>
-          
-          {/* Center Yin Yang Taiji */}
-          <circle cx="50" cy="50" r="3.5" fill="currentColor" />
-          <circle cx="50" cy="50" r="0.5" fill="#fff" />
-        </svg>
+        <img
+          src={luopanImg}
+          alt="罗盘应用示例（夏氏宅坐向）"
+          className="max-h-full max-w-full object-contain bg-transparent"
+        />
       )
     }
   ];
@@ -191,33 +128,51 @@ export default function XiaHouseShowcase({ theme, onSendToCalculator }: XiaHouse
             {/* Cartoon craftsman Xia Qiutang with chat speech bubble */}
             <div className="flex items-center space-x-2.5 bg-stone-100/80 dark:bg-zinc-800/80 p-2 rounded-xl border border-current border-opacity-10 shadow-sm shrink-0 self-start sm:self-center transition-transform hover:scale-105 duration-200">
               {/* Cute Cartoon old craftsman head portrait SVG */}
-              <div className="relative w-11 h-11 shrink-0 bg-[#fbfaf3] dark:bg-stone-700 rounded-full border border-art-accent/40 flex items-center justify-center overflow-hidden">
-                <svg className="w-10 h-10 text-stone-800 dark:text-stone-100" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  {/* Traditional Headband */}
-                  <path d="M 12,12 Q 20,5 28,12" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-                  <path d="M 10,13 C 10,11 14,9 16,9 L 24,9 C 26,9 30,11 30,13" fill="#8c4a32" />
-                  {/* Face */}
-                  <circle cx="20" cy="21" r="9" fill="#ffd8a8" fillOpacity="0.1" stroke="currentColor" strokeWidth="1.2" />
-                  <path d="M 11,21 C 11,25 29,25 29,21" fill="#fed7aa" />
-                  {/* Spectacles with round frame */}
-                  <circle cx="16" cy="18" r="3.2" stroke="currentColor" strokeWidth="1" />
-                  <circle cx="24" cy="18" r="3.2" stroke="currentColor" strokeWidth="1" />
-                  <line x1="19.2" y1="18" x2="20.8" y2="18" stroke="currentColor" strokeWidth="1" />
-                  {/* Bushy gray eyebrows */}
-                  <path d="M 13,13 Q 16,11 19,13.5" stroke="#78716c" strokeWidth="1.5" strokeLinecap="round" />
-                  <path d="M 27,13 Q 24,11 21,13.5" stroke="#78716c" strokeWidth="1.5" strokeLinecap="round" />
-                  {/* Traditional cheerful gray beard */}
-                  <path d="M 13,22 Q 20,19 27,22 Q 20,29 13,22" fill="#78716c" stroke="currentColor" strokeWidth="0.8" />
-                  <path d="M 16,23 Q 20,26 24,23" stroke="currentColor" strokeWidth="0.8" />
-                  {/* Cheek blush */}
-                  <circle cx="13" cy="20" r="1.5" fill="#f43f5e" fillOpacity="0.4" />
-                  <circle cx="27" cy="20" r="1.5" fill="#f43f5e" fillOpacity="0.4" />
-                  {/* Smile */}
-                  <path d="M 18,21 Q 20,23 22,21" stroke="#ef4444" strokeWidth="1" />
-                  {/* Mini hair bun */}
-                  <circle cx="20" cy="8" r="2.2" fill="#44403c" />
-                  <circle cx="16" cy="18" r="0.8" fill="currentColor" />
-                  <circle cx="24" cy="18" r="0.8" fill="currentColor" />
+              <div className="relative w-12 h-12 shrink-0 bg-[#fffbeb] dark:bg-stone-800 rounded-full border-2 border-amber-400 flex items-center justify-center overflow-hidden shadow-md">
+                <svg className="w-11 h-11" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* Background Soft Yellow Radiance */}
+                  <circle cx="20" cy="20" r="18" fill="#fef3c7" />
+
+                  {/* Traditional Scholar/Artisan Cap/Headband in elegant vermilion red */}
+                  <path d="M 12,12 Q 20,4 28,12 L 29,14 L 11,14 Z" fill="#b91c1c" />
+                  <circle cx="20" cy="5" r="2.5" fill="#f59e0b" />
+
+                  {/* Face Base in rich peach skin tone */}
+                  <circle cx="20" cy="21" r="9.5" fill="#fecdd3" stroke="#b45309" strokeWidth="0.8" />
+                  
+                  {/* Big Sparkling Cheerful Eyes (Anime-Style) */}
+                  <g>
+                    {/* Left Eye */}
+                    <ellipse cx="16" cy="19.5" rx="1.8" ry="2.2" fill="#1e293b" />
+                    <circle cx="15.2" cy="18.5" r="0.6" fill="#ffffff" /> {/* Eye Highlight */}
+                    
+                    {/* Right Eye */}
+                    <ellipse cx="24" cy="19.5" rx="1.8" ry="2.2" fill="#1e293b" />
+                    <circle cx="23.2" cy="18.5" r="0.6" fill="#ffffff" /> {/* Eye Highlight */}
+                  </g>
+
+                  {/* Big Round-Framed Golden Spectacles (Shows wisdom and fun!) */}
+                  <g stroke="#d97706" strokeWidth="0.9" fill="none">
+                    <circle cx="16" cy="19.5" r="3.2" />
+                    <circle cx="24" cy="19.5" r="3.2" />
+                    <line x1="19.2" y1="19.5" x2="20.8" y2="19.5" />
+                  </g>
+
+                  {/* Happy Rosy Cheeks */}
+                  <circle cx="12" cy="21" r="1.8" fill="#f43f5e" fillOpacity="0.65" />
+                  <circle cx="28" cy="21" r="1.8" fill="#f43f5e" fillOpacity="0.65" />
+
+                  {/* Cute Cheerful Brushy White Eyebrows */}
+                  <path d="M 12.5,14.5 Q 15.5,12 18.5,15" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" />
+                  <path d="M 27.5,14.5 Q 24.5,12 21.5,15" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" />
+
+                  {/* Wide, Jolly Smile revealing tongue */}
+                  <path d="M 17.5,22.2 Q 20,24.5 22.5,22.2" stroke="#b91c1c" strokeWidth="1.2" strokeLinecap="round" />
+                  <path d="M 18,22.6 T 22,22.6 Q 20,25 18,22.6" fill="#f43f5e" />
+
+                  {/* Fluffy white mustache and beard of a grand old master carpenter */}
+                  <path d="M 14,24 Q 20,21 26,24 Q 20,33 14,24" fill="#f4f4f5" stroke="#d4d4d8" strokeWidth="0.8" />
+                  <path d="M 17,25 Q 20,27 23,25" stroke="#b0b0b5" strokeWidth="0.6" />
                 </svg>
               </div>
 
@@ -229,7 +184,7 @@ export default function XiaHouseShowcase({ theme, onSendToCalculator }: XiaHouse
                    老木匠 夏秋堂 👴
                 </div>
                 <div className="font-serif leading-snug font-bold text-stone-700 dark:text-stone-200">
-                  “这是我为我儿子做的房子！👦🏠”
+                  “这是我为同村营造商夏安邦、夏振邦所做的房子，在上海的营造商都请我建房子。”
                 </div>
               </div>
             </div>
@@ -317,7 +272,7 @@ export default function XiaHouseShowcase({ theme, onSendToCalculator }: XiaHouse
           <div className="flex justify-between items-center border-b border-current border-opacity-10 pb-3">
             <h3 className="font-serif text-lg font-bold flex items-center space-x-2">
               <Eye className="h-5 w-5 opacity-70" />
-              <span>夏式宅 · 交互开开平面大木作测绘图</span>
+              <span>夏氏宅 · 交互式平面大木作测绘图</span>
             </h3>
             <span className="text-[10px] font-mono opacity-60">点击或悬停骨梁查看古尺压白</span>
           </div>
@@ -351,37 +306,47 @@ export default function XiaHouseShowcase({ theme, onSendToCalculator }: XiaHouse
                 <text x="-3" y="32" fontSize="8" className="font-serif" fill="currentColor">丙</text>
               </g>
 
-              {/* Main Architecture Outlines (Chinese Compound) */}
-              {/* Central Room: 客堂间 - Main column blocks */}
-              <rect x="140" y="80" width="120" height="140" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3,3" className="opacity-40" />
-              {/* Left Room: 次间一 */}
-              <rect x="50" y="80" width="90" height="140" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3,3" className="opacity-20" />
-              {/* Right Room: 次间二 */}
-              <rect x="260" y="80" width="90" height="140" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3,3" className="opacity-20" />
+              {/* Main Architecture Outlines (5-Bay Chinese Compound Layout) */}
+              {/* Room 1: 客堂间 - Main column blocks */}
+              <rect x="155" y="80" width="90" height="140" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3,3" className="opacity-40" />
+              {/* Room 2: 左次间 */}
+              <rect x="90" y="80" width="65" height="140" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3,3" className="opacity-20" />
+              {/* Room 3: 右次间 */}
+              <rect x="245" y="80" width="65" height="140" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3,3" className="opacity-20" />
+              {/* Room 4: 左梢间 */}
+              <rect x="30" y="80" width="60" height="140" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3,3" className="opacity-15" />
+              {/* Room 5: 右梢间 */}
+              <rect x="310" y="80" width="60" height="140" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="3,3" className="opacity-15" />
 
               {/* Walls Solid Lines */}
               {/* Outer boundary wall */}
-              <path d="M 50,220 L 50,80 L 350,80 L 350,220" fill="none" stroke="currentColor" strokeWidth="2.5" />
+              <path d="M 30,220 L 30,80 L 370,80 L 370,220" fill="none" stroke="currentColor" strokeWidth="2.5" />
 
               {/* Pillars (Columns/散骨) as little black filled circles */}
               <g fill="currentColor">
                 {/* Back line pillars */}
-                <circle cx="50" cy="80" r="4" />
-                <circle cx="140" cy="80" r="4.5" />
-                <circle cx="260" cy="80" r="4.5" />
-                <circle cx="350" cy="80" r="4" />
+                <circle cx="30" cy="80" r="3.5" />
+                <circle cx="90" cy="80" r="4" />
+                <circle cx="155" cy="80" r="4" />
+                <circle cx="245" cy="80" r="4" />
+                <circle cx="310" cy="80" r="4" />
+                <circle cx="370" cy="80" r="3.5" />
 
                 {/* Middle line pillars */}
-                <circle cx="50" cy="140" r="4.5" />
-                <circle cx="140" cy="140" r="5" />
-                <circle cx="260" cy="140" r="5" />
-                <circle cx="350" cy="140" r="4.5" />
+                <circle cx="30" cy="140" r="4" />
+                <circle cx="90" cy="140" r="4.5" />
+                <circle cx="155" cy="140" r="4.5" />
+                <circle cx="245" cy="140" r="4.5" />
+                <circle cx="310" cy="140" r="4.5" />
+                <circle cx="370" cy="140" r="4" />
 
                 {/* Front line pillars */}
-                <circle cx="50" cy="220" r="4" />
-                <circle cx="140" cy="220" r="5" />
-                <circle cx="260" cy="220" r="5" />
-                <circle cx="350" cy="220" r="4" />
+                <circle cx="30" cy="220" r="3.5" />
+                <circle cx="90" cy="220" r="4.5" />
+                <circle cx="155" cy="220" r="4.5" />
+                <circle cx="245" cy="220" r="4.5" />
+                <circle cx="310" cy="220" r="4.5" />
+                <circle cx="370" cy="220" r="3.5" />
               </g>
 
               {/* Interactivity Labels on Blueprint */}
@@ -390,10 +355,10 @@ export default function XiaHouseShowcase({ theme, onSendToCalculator }: XiaHouse
                 className="cursor-pointer group"
                 onClick={() => setActiveCaseId("kaijian_1")}
               >
-                <rect x="145" y="55" width="110" height="20" fill="transparent" />
-                <line x1="140" y1="65" x2="260" y2="65" stroke={activeCaseId === "kaijian_1" ? rcHighlight : "currentColor"} strokeWidth={activeCaseId === "kaijian_1" ? "2" : "1"} markerStart="url(#arrow-start)" markerEnd="url(#arrow-end)" />
-                <text x="175" y="52" fontSize="9" className={`font-serif ${activeCaseId === "kaijian_1" ? "font-semibold" : ""}`} fill={activeCaseId === "kaijian_1" ? rcHighlight : "currentColor"}>
-                  客堂间: 6059mm (22尺)
+                <rect x="155" y="50" width="90" height="25" fill="transparent" />
+                <line x1="155" y1="65" x2="245" y2="65" stroke={activeCaseId === "kaijian_1" ? rcHighlight : "currentColor"} strokeWidth={activeCaseId === "kaijian_1" ? "2" : "1"} markerStart="url(#arrow-start)" markerEnd="url(#arrow-end)" />
+                <text x="200" y="52" fontSize="7.5" textAnchor="middle" className={`font-serif ${activeCaseId === "kaijian_1" ? "font-semibold" : ""}`} fill={activeCaseId === "kaijian_1" ? rcHighlight : "currentColor"}>
+                  客堂间: 6059mm
                 </text>
               </g>
 
@@ -402,10 +367,10 @@ export default function XiaHouseShowcase({ theme, onSendToCalculator }: XiaHouse
                 className="cursor-pointer group"
                 onClick={() => setActiveCaseId("kaijian_2")}
               >
-                <rect x="55" y="55" width="80" height="20" fill="transparent" />
-                <line x1="50" y1="65" x2="140" y2="65" stroke={activeCaseId === "kaijian_2" ? rcHighlight : "currentColor"} strokeWidth={activeCaseId === "kaijian_2" ? "2" : "1"} markerStart="url(#arrow-start)" markerEnd="url(#arrow-end)" />
-                <text x="65" y="52" fontSize="8" className={`font-serif ${activeCaseId === "kaijian_2" ? "font-semibold" : ""}`} fill={activeCaseId === "kaijian_2" ? rcHighlight : "currentColor"}>
-                  次间一: 4675mm (17尺)
+                <rect x="90" y="50" width="65" height="25" fill="transparent" />
+                <line x1="90" y1="65" x2="155" y2="65" stroke={activeCaseId === "kaijian_2" ? rcHighlight : "currentColor"} strokeWidth={activeCaseId === "kaijian_2" ? "1.8" : "0.8"} markerStart="url(#arrow-start)" markerEnd="url(#arrow-end)" />
+                <text x="122" y="52" fontSize="6.5" textAnchor="middle" className={`font-serif ${activeCaseId === "kaijian_2" ? "font-semibold" : ""}`} fill={activeCaseId === "kaijian_2" ? rcHighlight : "currentColor"}>
+                  左次间: 4675mm
                 </text>
               </g>
 
@@ -414,58 +379,84 @@ export default function XiaHouseShowcase({ theme, onSendToCalculator }: XiaHouse
                 className="cursor-pointer group"
                 onClick={() => setActiveCaseId("kaijian_3")}
               >
-                <rect x="265" y="55" width="80" height="20" fill="transparent" />
-                <line x1="260" y1="65" x2="350" y2="65" stroke={activeCaseId === "kaijian_3" ? rcHighlight : "currentColor"} strokeWidth={activeCaseId === "kaijian_3" ? "2" : "1"} markerStart="url(#arrow-start)" markerEnd="url(#arrow-end)" />
-                <text x="275" y="52" fontSize="8" className={`font-serif ${activeCaseId === "kaijian_3" ? "font-semibold" : ""}`} fill={activeCaseId === "kaijian_3" ? rcHighlight : "currentColor"}>
-                  次间二: 4684mm (17尺)
+                <rect x="245" y="50" width="65" height="25" fill="transparent" />
+                <line x1="245" y1="65" x2="310" y2="65" stroke={activeCaseId === "kaijian_3" ? rcHighlight : "currentColor"} strokeWidth={activeCaseId === "kaijian_3" ? "1.8" : "0.8"} markerStart="url(#arrow-start)" markerEnd="url(#arrow-end)" />
+                <text x="278" y="52" fontSize="6.5" textAnchor="middle" className={`font-serif ${activeCaseId === "kaijian_3" ? "font-semibold" : ""}`} fill={activeCaseId === "kaijian_3" ? rcHighlight : "currentColor"}>
+                  右次: 4675mm
                 </text>
               </g>
 
-              {/* Clickable Area 4: 前步架进深 - jinshen_overall_1 */}
+              {/* Clickable Area 4: 左梢间 Width - kaijian_4 */}
+              <g
+                className="cursor-pointer group"
+                onClick={() => setActiveCaseId("kaijian_4")}
+              >
+                <rect x="30" y="50" width="60" height="25" fill="transparent" />
+                <line x1="30" y1="65" x2="90" y2="65" stroke={activeCaseId === "kaijian_4" ? rcHighlight : "currentColor"} strokeWidth={activeCaseId === "kaijian_4" ? "1.8" : "0.8"} markerStart="url(#arrow-start)" markerEnd="url(#arrow-end)" />
+                <text x="60" y="52" fontSize="6.5" textAnchor="middle" className={`font-serif ${activeCaseId === "kaijian_4" ? "font-semibold" : ""}`} fill={activeCaseId === "kaijian_4" ? rcHighlight : "currentColor"}>
+                  左梢(学长家): 4584mm
+                </text>
+              </g>
+
+              {/* Clickable Area 5: 右梢间 Width - kaijian_5 */}
+              <g
+                className="cursor-pointer group"
+                onClick={() => setActiveCaseId("kaijian_5")}
+              >
+                <rect x="310" y="50" width="60" height="25" fill="transparent" />
+                <line x1="310" y1="65" x2="370" y2="65" stroke={activeCaseId === "kaijian_5" ? rcHighlight : "currentColor"} strokeWidth={activeCaseId === "kaijian_5" ? "1.8" : "0.8"} markerStart="url(#arrow-start)" markerEnd="url(#arrow-end)" />
+                <text x="340" y="52" fontSize="6.5" textAnchor="middle" className={`font-serif ${activeCaseId === "kaijian_5" ? "font-semibold" : ""}`} fill={activeCaseId === "kaijian_5" ? rcHighlight : "currentColor"}>
+                  右梢: 4684mm
+                </text>
+              </g>
+
+              {/* Clickable Area 6: 前步架进深 - jinshen_overall_1 */}
               <g
                 className="cursor-pointer group"
                 onClick={() => setActiveCaseId("jinshen_overall_1")}
               >
-                <rect x="355" y="145" width="35" height="70" fill="transparent" />
-                <line x1="365" y1="140" x2="365" y2="220" stroke={activeCaseId === "jinshen_overall_1" ? rcHighlight : "currentColor"} strokeWidth={activeCaseId === "jinshen_overall_1" ? "2" : "1"} markerStart="url(#arrow-start)" markerEnd="url(#arrow-end)" />
-                <text x="372" y="185" fontSize="8" className={`font-serif ${activeCaseId === "jinshen_overall_1" ? "font-semibold" : ""} writing-mode-vertical`} fill={activeCaseId === "jinshen_overall_1" ? rcHighlight : "currentColor"}>
-                  前步深: 3.8m
+                <rect x="375" y="140" width="25" height="80" fill="transparent" />
+                <line x1="385" y1="140" x2="385" y2="220" stroke={activeCaseId === "jinshen_overall_1" ? rcHighlight : "currentColor"} strokeWidth={activeCaseId === "jinshen_overall_1" ? "1.8" : "0.8"} markerStart="url(#arrow-start)" markerEnd="url(#arrow-end)" />
+                <text x="392" y="180" fontSize="7" className={`font-serif ${activeCaseId === "jinshen_overall_1" ? "font-semibold" : ""} writing-mode-vertical`} fill={activeCaseId === "jinshen_overall_1" ? rcHighlight : "currentColor"}>
+                  前步深: 3800mm
                 </text>
               </g>
 
-              {/* Clickable Area 5: 双脊进深 - jinshen_overall_2 */}
+              {/* Clickable Area 7: 双脊进深 - jinshen_overall_2 */}
               <g
                 className="cursor-pointer group"
                 onClick={() => setActiveCaseId("jinshen_overall_2")}
               >
-                <rect x="15" y="85" width="30" height="55" fill="transparent" />
-                <line x1="25" y1="80" x2="25" y2="140" stroke={activeCaseId === "jinshen_overall_2" ? rcHighlight : "currentColor"} strokeWidth={activeCaseId === "jinshen_overall_2" ? "2" : "1"} markerStart="url(#arrow-start)" markerEnd="url(#arrow-end)" />
-                <text x="2" y="115" fontSize="8" className={`font-serif ${activeCaseId === "jinshen_overall_2" ? "font-semibold" : ""}`} fill={activeCaseId === "jinshen_overall_2" ? rcHighlight : "currentColor"}>
+                <rect x="2" y="80" width="22" height="60" fill="transparent" />
+                <line x1="12" y1="80" x2="12" y2="140" stroke={activeCaseId === "jinshen_overall_2" ? rcHighlight : "currentColor"} strokeWidth={activeCaseId === "jinshen_overall_2" ? "1.8" : "0.8"} markerStart="url(#arrow-start)" markerEnd="url(#arrow-end)" />
+                <text x="2" y="115" fontSize="7" className={`font-serif ${activeCaseId === "jinshen_overall_2" ? "font-semibold" : ""}`} fill={activeCaseId === "jinshen_overall_2" ? rcHighlight : "currentColor"}>
                   双脊: 4.5m
                 </text>
               </g>
 
-              {/* Clickable Area 6: 通面阔总进深 - jinshen_overall_3 */}
+              {/* Clickable Area 8: 通面阔总进深 - jinshen_overall_3 */}
               <g
                 className="cursor-pointer group"
                 onClick={() => setActiveCaseId("jinshen_overall_3")}
               >
-                <rect x="315" y="85" width="30" height="130" fill="transparent" />
-                <line x1="325" y1="80" x2="325" y2="220" stroke={activeCaseId === "jinshen_overall_3" ? rcHighlight : "currentColor"} strokeWidth={activeCaseId === "jinshen_overall_3" ? "2" : "1"} markerStart="url(#arrow-start)" markerEnd="url(#arrow-end)" />
-                <text x="305" y="160" fontSize="8" className={`font-serif ${activeCaseId === "jinshen_overall_3" ? "font-semibold" : ""} writing-mode-vertical`} fill={activeCaseId === "jinshen_overall_3" ? rcHighlight : "currentColor"}>
-                  梁总深: 8341mm
+                <rect x="15" y="80" width="22" height="140" fill="transparent" />
+                <line x1="22" y1="80" x2="22" y2="220" stroke={activeCaseId === "jinshen_overall_3" ? rcHighlight : "currentColor"} strokeWidth={activeCaseId === "jinshen_overall_3" ? "2" : "1"} markerStart="url(#arrow-start)" markerEnd="url(#arrow-end)" />
+                <text x="2" y="170" fontSize="7" className={`font-serif ${activeCaseId === "jinshen_overall_3" ? "font-semibold" : ""} writing-mode-vertical`} fill={activeCaseId === "jinshen_overall_3" ? rcHighlight : "currentColor"}>
+                  总进深: 8341mm
                 </text>
               </g>
 
               {/* Room Descriptions Floating Overlay Text */}
-              <text x="95" y="150" fontSize="10" className="opacity-30 fill-current text-center font-serif">次间一</text>
-              <text x="200" y="155" fontSize="12" className="opacity-45 fill-current text-center font-serif font-bold">正客堂间</text>
-              <text x="305" y="150" fontSize="10" className="opacity-30 fill-current text-center font-serif">次间二</text>
+              <text x="60" y="150" fontSize="8" className="opacity-35 fill-current text-center font-serif" textAnchor="middle">梢间一(学长家)</text>
+              <text x="122" y="150" fontSize="8" className="opacity-35 fill-current text-center font-serif" textAnchor="middle">次间一</text>
+              <text x="200" y="153" fontSize="10" className="opacity-50 fill-current text-center font-serif font-bold" textAnchor="middle">客堂间</text>
+              <text x="278" y="150" fontSize="8" className="opacity-35 fill-current text-center font-serif" textAnchor="middle">次间二(外卖员家)</text>
+              <text x="340" y="150" fontSize="8" className="opacity-35 fill-current text-center font-serif" textAnchor="middle">梢间二</text>
             </svg>
           </div>
 
           <p className="text-[10px] opacity-65 italic leading-relaxed text-center">
-            * 提示：上图为夏式住宅大木典型“一正两厢三合院”正面骨架平面模型。点击标注的红色/黑色带状，下方可自动切换深度学术解读，并可无缝导入到压白智能测算仪之中。
+            * 提示：上图为夏氏住宅大木典型穿斗构架平面模型。点击标注的红色/黑色带状，下方可自动切换深度学术解读，并可无缝导入到压白智能测算仪之中。
           </p>
         </div>
 
@@ -553,149 +544,26 @@ export default function XiaHouseShowcase({ theme, onSendToCalculator }: XiaHouse
         </div>
       </div>
 
-      {/* 3D Visual Model Section: Guanyindou high firewall orthographic skeleton */}
+      {/* Academic Profile Model Section: Chuan-dou framework skeleton */}
       <div className={`p-6 rounded-2xl border ${
         isWarm ? "bg-[#fdfbf7] border-art-border text-art-text" : "bg-[#111111] border-[#222222] text-[#F3F3F3]"
       } space-y-6`}>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-current border-opacity-10 pb-4">
           <div>
-            <h3 className="font-serif text-lg font-bold">浦东大木作「观音兜山墙」梁架结构解构模型</h3>
+            <h3 className="font-serif text-lg font-bold">浦东大木作「穿斗式」排架结构剖面图</h3>
             <p className={`text-xs ${isWarm ? "text-art-text/60" : "text-zinc-500"} mt-0.5`}>
-              动态滑块调整：观察屋架结构与传统防风火山墙“观音兜山墙”的几何关系
+              大木断构剖面图：展现江南传统穿斗构架（七落地柱、多层通长穿枋、二层中夹层阁楼）相互穿插榫接的经典建筑构造断面
             </p>
-          </div>
-
-          {/* Sliders and Toggles */}
-          <div className="flex flex-wrap items-center gap-4 text-xs font-mono">
-            {/* Exploded Slider */}
-            <div className="flex items-center space-x-2">
-              <span className="opacity-70">梁架炸解:</span>
-              <input
-                id="explode-slider"
-                type="range"
-                min="0"
-                max="50"
-                value={explodeRatio}
-                onChange={(e) => setExplodeRatio(parseInt(e.target.value))}
-                className="w-24 accent-current scale-90"
-              />
-              <span className="w-8 text-right font-bold">{explodeRatio}%</span>
-            </div>
-
-            {/* Show roof */}
-            <button
-              onClick={() => setShowRoof(!showRoof)}
-              className={`px-2 py-1 border rounded text-[10px] cursor-pointer ${
-                showRoof ? "bg-stone-500/10 font-bold" : "opacity-40"
-              }`}
-            >
-              屋面瓦片: {showRoof ? "开" : "关"}
-            </button>
-
-            {/* Show wall */}
-            <button
-              onClick={() => setShowWall(!showWall)}
-              className={`px-2 py-1 border rounded text-[10px] cursor-pointer ${
-                showWall ? "bg-stone-500/10 font-bold" : "opacity-40"
-              }`}
-            >
-              观音兜山墙: {showWall ? "显示" : "隐藏"}
-            </button>
           </div>
         </div>
 
         {/* 3D skeleton projection drawing canvas/SVG */}
-        <div className="relative py-4 aspect-[21/9] w-full border rounded-lg bg-black/10 overflow-hidden flex items-center justify-center">
-          <svg className="w-full max-w-[800px] h-full" viewBox="0 0 600 240">
-            {/* Ground Line */}
-            <line x1="50" y1="210" x2="550" y2="210" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.4" />
-
-            {/* Guanyindou Fire-Wall (Left Wall Contour) */}
-            {showWall && (
-              <motion.path
-                d="M 120,210 L 120,130 Q 120,90 100,80 Q 120,70 140,50 Q 160,30 200,30 L 210,30 Q 250,30 270,50 Q 290,70 310,80 Q 290,90 290,130 L 290,210 Z"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeOpacity="0.15"
-                fillOpacity="0.03"
-                fill="currentColor"
-                animate={{
-                  x: -explodeRatio * 0.4
-                }}
-                transition={{ type: "spring", damping: 15 }}
-              />
-            )}
-
-            {/* Backplane timber frame pillars (Active explode) */}
-            <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-              {/* Columns */}
-              <motion.g
-                animate={{
-                  y: explodeRatio * 0.2
-                }}
-                transition={{ type: "spring", damping: 15 }}
-              >
-                {/* Main Pillars */}
-                <line x1="200" y1="210" x2="200" y2="70" strokeWidth="4" />
-                <line x1="300" y1="210" x2="300" y2="70" strokeWidth="4" />
-                <line x1="400" y1="210" x2="400" y2="75" strokeWidth="4" />
-
-                {/* Shorter outrigger columns */}
-                <line x1="160" y1="210" x2="160" y2="130" strokeWidth="3" />
-                <line x1="440" y1="210" x2="440" y2="135" strokeWidth="3" />
-              </motion.g>
-
-              {/* Beams (梁) (Active explode) */}
-              <motion.g
-                animate={{
-                  y: -explodeRatio * 0.5
-                }}
-                transition={{ type: "spring", damping: 15 }}
-              >
-                {/* Broad Main Beams */}
-                <line x1="160" y1="130" x2="440" y2="135" strokeWidth="5.5" />
-                <line x1="200" y1="100" x2="400" y2="102" strokeWidth="4" />
-                <line x1="230" y1="75" x2="370" y2="76" strokeWidth="3" />
-
-                {/* Traditional Chinese Bracket Blocks (瓜柱 / 斗拱) */}
-                <rect x="195" y="100" width="10" height="30" fill="currentColor" strokeWidth="1" />
-                <rect x="395" y="102" width="10" height="33" fill="currentColor" strokeWidth="1" />
-                <rect x="225" y="75" width="10" height="25" fill="currentColor" strokeWidth="1" />
-                <rect x="365" y="76" width="10" height="26" fill="currentColor" strokeWidth="1" />
-              </motion.g>
-
-              {/* Roof purlins system & tiles */}
-              {showRoof && (
-                <motion.g
-                  animate={{
-                    y: -explodeRatio * 1.1
-                  }}
-                  transition={{ type: "spring", damping: 15 }}
-                  strokeOpacity="0.8"
-                >
-                  {/* Roof Slope beam rafters */}
-                  <line x1="130" y1="150" x2="300" y2="40" strokeWidth="2.5" />
-                  <line x1="300" y1="40" x2="470" y2="155" strokeWidth="2.5" strokeDasharray="1,1" />
-
-                  {/* Roof Ridge details */}
-                  <polygon points="290,40 300,20 310,40" fill="currentColor" strokeWidth="2" />
-
-                  {/* Little Hanging timber details */}
-                  <circle cx="130" cy="150" r="3" fill="currentColor" />
-                  <circle cx="470" cy="155" r="3" fill="currentColor" />
-                </motion.g>
-              )}
-            </g>
-
-            {/* Legends labels overlaid onto the 3D drawing */}
-            <g className="text-[9px] font-mono select-none" fill="currentColor" opacity="0.65">
-              <text x="305" y="55">梁顶脊桁</text>
-              <text x="210" y="93">金梁 / 五架梁</text>
-              <text x="175" y="125">大中梁 / 七架梁</text>
-              <text x="382" y="165">大散柱</text>
-              <text x="80" y="232">浦东传统江南特色：【观音兜封火山墙】</text>
-            </g>
-          </svg>
+        <div className="relative aspect-[16/7] w-full border rounded-xl bg-transparent border-stone-300/35 dark:border-zinc-800/40 overflow-hidden flex items-center justify-center">
+          <img 
+            src={myNewImage}
+            alt="浦东大木作「穿斗式」排架结构剖面图"
+            className="max-h-full max-w-full object-contain"
+          />
         </div>
       </div>
 

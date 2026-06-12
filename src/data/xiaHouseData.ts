@@ -17,22 +17,22 @@ export interface XiaHouseMetadata {
 }
 
 export const XIA_HOUSE_META: XiaHouseMetadata = {
-  name: "浦东民间大木作：夏式宅",
-  location: "上海市浦东新区合庆镇传统村落（原川沙大木流派）",
+  name: "浦东民间大木作：夏氏宅",
+  location: "上海市浦东新区合庆镇传统村落",
   era: "1920年代至1930年代",
   family: "川沙当地夏氏",
-  craftsman: "夏秋堂（合庆镇当地具有一定知名度的大木匠、营造师傅）",
-  significance: "夏氏住宅是研究上海川沙等浦东东部沿海平原民间‘压白尺法’存世最完整、最具地方营造工匠技艺传承价值的实物案例。其大木作尺寸、柱距和开间设置契合了夏秋堂在合庆镇一系的地方工匠习惯，并带有独特的‘上海大木作’及传统‘马鞍墙’（已被称为猫弓山墙，有别于闽粤观音兜）防风火山墙形式。",
-  description: "夏氏住宅主体采用江南典型三合院带偏房或多进合院制宅院格局，约建于1920年代至1930年代，坐壬向丙（坐北偏西，向南偏东）。该建筑大木构架完整保留了合庆镇本地工匠习惯的主尺度控制。其开间尺度、梁架进深深度高度测数，与‘营造尺法’及‘九星压白’高度咬合。它是解读民间工匠如何平衡工程尺度和堪舆吉凶的活化石。",
+  craftsman: "夏秋堂（合庆镇当地具有一定知名度的大木作工匠）",
+  significance: "夏氏宅是研究上海川沙等浦东东部沿海平原民间‘压白尺法’存世完整、极具地方营造工匠技艺传承价值的实物案例。其大木作尺寸、柱距和开间设置契合了夏秋堂在合庆镇一系的地方工匠习惯。",
+  description: "夏氏宅约建于1920年代至1930年代，坐壬向丙（坐北偏西，向南偏东）。该建筑大木构架完整保留了合庆镇本地工匠习惯的主尺度控制。其开间尺度、大木进深深度高度测数，与‘营造尺法’及‘九星压白’高度咬合。它是解读民间工匠如何平衡工程尺度和堪舆吉凶的活化石。",
   sittingTrigram: "离"
 };
 
 // 测量数据
 export const XIA_HOUSE_CASES: CaseItem[] = [
-  // 开间
+  // 开间 (五开间)
   {
     id: "kaijian_1",
-    name: "客堂间 (房间1 居中)",
+    name: "客堂间 (五开间居中)",
     type: "开间",
     rawMm: 6059,
     computedChi: 22,
@@ -42,11 +42,11 @@ export const XIA_HOUSE_CASES: CaseItem[] = [
     chiAuspicious: false,
     cunAuspicious: false,
     overallAuspicious: false,
-    note: "实际测绘公制尺寸为 6059mm，按浦东营造尺（27.5cm/尺）折算为 22.03 尺，接近 22 尺整。在九星压白算式中，22尺对应‘破军’为绝命大凶（不压白）。学术研究指出可能存在8mm测绘误差，若工匠设计实为 21 尺（约5775mm），则对应‘武曲’金星延年大吉！这反映出传统营造中实际放样和测量的微差。"
+    note: "实际测绘公制尺寸为 6059mm，按浦东东部营造尺（27.5cm/尺）折算为 22.03 尺，接近 22 尺整,可能为测绘误差实为 21 尺。在五间之最中心作为客堂间，体量最大，主事中堂。"
   },
   {
     id: "kaijian_2",
-    name: "次间一 (房间2 左侧)",
+    name: "次间一 (五开间左次间)",
     type: "开间",
     rawMm: 4675,
     computedChi: 17,
@@ -55,12 +55,40 @@ export const XIA_HOUSE_CASES: CaseItem[] = [
     cunStarName: "无",
     chiAuspicious: true,
     cunAuspicious: false,
-    overallAuspicious: false, // 属于普遍民居的“寸白”一般不做过度要求，但其尺白为吉
-    note: "实际测绘尺寸 4675mm，按 27.5cm 营造尺折算恰好为 17.00 尺整。17 尺对应‘巨门’土星（天医，大吉！），是极其完美的大木作压白尺度，可见工匠在此大木面阔尺寸控制上的良苦用心。"
+    overallAuspicious: false,
+    note: "实际测绘尺寸 4675mm，按 27.5cm 营造尺折算恰好为 17.00 尺整。17 尺对应‘巨门’土星（天医，大吉！），是极其完美的大木作压白尺度。"
   },
   {
     id: "kaijian_3",
-    name: "次间二 (房间3 右侧)",
+    name: "次间二 (五开间右次间 • 外卖员家)",
+    type: "开间",
+    rawMm: 4675,
+    computedChi: 17,
+    computedCun: 0,
+    chiStarName: "巨门",
+    cunStarName: "无",
+    chiAuspicious: true,
+    cunAuspicious: false,
+    overallAuspicious: false,
+    note: "实际测绘尺寸 4675mm，按 27.5cm 营造尺折算恰好为 17.00 尺整。与左次间完全对称且双向压巨门大吉，主吉利祥和。"
+  },
+  {
+    id: "kaijian_4",
+    name: "梢间一 (五开间左梢间 • 学长家)",
+    type: "开间",
+    rawMm: 4584,
+    computedChi: 16,
+    computedCun: 7,
+    chiStarName: "贪狼",
+    cunStarName: "六白",
+    chiAuspicious: true,
+    cunAuspicious: true,
+    overallAuspicious: true,
+    note: "位于建筑最左翼梢间，实测公制尺寸为 4584mm。折算营造尺约 16尺 7寸，尺白压一白贪狼木星大吉，寸白压六白武曲金星大吉，属双重极美极星照临。"
+  },
+  {
+    id: "kaijian_5",
+    name: "梢间二 (五开间右梢间)",
     type: "开间",
     rawMm: 4684,
     computedChi: 17,
@@ -70,7 +98,7 @@ export const XIA_HOUSE_CASES: CaseItem[] = [
     chiAuspicious: true,
     cunAuspicious: false,
     overallAuspicious: false,
-    note: "实际测绘尺寸 4684mm，折算为 17.03 尺，四舍五入为 17 尺整。其吉凶极星亦对应‘巨门’天医大吉。左右次间开间一致（相差仅 9mm 误差），呈现典型的中轴对称和完美压白设计。"
+    note: "位于建筑最右翼梢间，实测公制尺寸为 4684mm，折算约为 17.03 尺，极其接近 17 尺整。压巨门土星大吉，左右两侧整体空间大木布局达到极佳稳态。"
   },
 
   // 进深
@@ -104,7 +132,7 @@ export const XIA_HOUSE_CASES: CaseItem[] = [
   },
   {
     id: "jinshen_overall_3",
-    name: "通面阔总进深/梁架总跨",
+    name: "通面阔总进深/穿斗构架总进深",
     type: "整体进深",
     rawMm: 8341,
     computedChi: 30,
@@ -114,7 +142,7 @@ export const XIA_HOUSE_CASES: CaseItem[] = [
     chiAuspicious: true,
     cunAuspicious: false,
     overallAuspicious: false,
-    note: "公制总测量 8341mm，折合 30尺 3寸。其总进深尺白星对应‘武曲’金星（延年，大吉！）。大木梁架总跨优先保证了梁架主骨骼‘尺白’大吉，庇护整栋建筑大梁安稳。"
+    note: "公制总测量 8341mm，折合 30尺 3寸。其总进深尺白星对应‘武曲’金星（延年，大吉！）。大木构架总进深优先保证了构架主骨骼‘尺白’大吉，庇护整栋建筑大木结构安稳。"
   },
 
   // 柱距

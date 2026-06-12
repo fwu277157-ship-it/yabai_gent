@@ -64,7 +64,7 @@ export default function Header({ currentTab, setCurrentTab, theme, setTheme }: H
               }`}
             >
               <Home className="h-4 w-4" />
-              <span className="hidden sm:inline">夏式宅展示</span>
+              <span className="hidden sm:inline">夏氏宅展示</span>
             </button>
 
             <button
